@@ -1,13 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Grade Tracker</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/6a9f6daa92.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1><span>Grade</span> Tracker</h1>
+      <!-- ADD Student section -->
+      <section class="add-student">
+        <div class="card">
+          <p class="card-label">ADD STUDENT</p>
+          <form action="">
+            <div class="form-inputs">
+              <label for="student-name"
+                >Name<input
+                  type="text"
+                  name="student-name"
+                  id="student-name"
+                  placeholder="e.g. Joe Rogan"
+              /></label>
+              <label for="student-grade"
+                >Grade<input
+                  type="number"
+                  name="student-grade"
+                  id="student-grade"
+                  min="0"
+                  max="100"
+                  placeholder="0 - 100"
+              /></label>
+            </div>
+            <p class="error-message" id="error-message">
+              Must have at least one name
+            </p>
+            <button type="submit" id="submit-btn" class="submit-btn">
+              Add Student
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Display Class Average as students are added and removed -->
+      <section class="class-average">
+        <div class="card">
+          <p class="card-label">CLASS AVERAGE</p>
+          <div class="average">
+            <p class="title">Average Grade</p>
+            <p class="average-score"><span id="average-value">—</span> / 100</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Display Student List and remove student from list -->
+      <section class="students-list">
+        <div class="card">
+          <div class="card-flex">
+            <p class="card-label">STUDENTS</p>
+            <div class="sort-buttons">
+              <button id="sort-alphabetically">
+                <i class="fa-solid fa-arrow-down-a-z"></i> A-Z
+              </button>
+              <button id="sort-by-highest-grade">
+                <i class="fa-solid fa-arrow-down-9-1"></i> 9-0
+              </button>
+            </div>
+          </div>
+          <div class="list-container">
+            <!-- when student list less than 1 -->
+            <!-- <div class="no-student">
+              <p>No students added yet.</p>  
+            </div> -->
+
+            <!-- when student list is greater than 0 -->
+            <div class="list-flex">
+              <div class="name-flex">
+                <span class="student-idx">01</span>
+                <p>Ada Lovelace Jr.</p>
+                <span id="above-avg-indicator"
+                  ><i class="fa-solid fa-arrow-up"></i> AVG</span
+                >
+              </div>
+              <div class="grade-flex">
+                <p>70</p>
+                <button id="" class="delete-btn">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            </div>
+            <div class="list-flex">
+              <div class="name-flex">
+                <span class="student-idx">02</span>
+                <p>Ada Love</p>
+              </div>
+              <div class="grade-flex">
+                <p>54</p>
+                <button id="" class="delete-btn">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            </div>
+            <div class="student-length">
+              <p>2 students</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>
