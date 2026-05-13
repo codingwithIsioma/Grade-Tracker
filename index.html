@@ -24,10 +24,10 @@
       <section class="add-student">
         <div class="card">
           <p class="card-label">ADD STUDENT</p>
-          <form action="">
+          <form id="student-form" action="">
             <div class="form-inputs">
               <label for="student-name"
-                >Name<input
+                >Student Name<input
                   type="text"
                   name="student-name"
                   id="student-name"
@@ -38,14 +38,11 @@
                   type="number"
                   name="student-grade"
                   id="student-grade"
-                  min="0"
-                  max="100"
                   placeholder="0 - 100"
+                  step="0.1"
               /></label>
             </div>
-            <p class="error-message" id="error-message">
-              Must have at least one name
-            </p>
+            <p class="error-message" id="error-message"></p>
             <button type="submit" id="submit-btn" class="submit-btn">
               Add Student
             </button>
@@ -78,43 +75,12 @@
               </button>
             </div>
           </div>
-          <div class="list-container">
-            <!-- when student list less than 1 -->
-            <!-- <div class="no-student">
-              <p>No students added yet.</p>  
-            </div> -->
-
-            <!-- when student list is greater than 0 -->
-            <div class="list-flex">
-              <div class="name-flex">
-                <span class="student-idx">01</span>
-                <p>Ada Lovelace Jr.</p>
-                <span id="above-avg-indicator"
-                  ><i class="fa-solid fa-arrow-up"></i> AVG</span
-                >
-              </div>
-              <div class="grade-flex">
-                <p>70</p>
-                <button id="" class="delete-btn">
-                  <i class="fa-solid fa-xmark"></i>
-                </button>
-              </div>
-            </div>
-            <div class="list-flex">
-              <div class="name-flex">
-                <span class="student-idx">02</span>
-                <p>Ada Love</p>
-              </div>
-              <div class="grade-flex">
-                <p>54</p>
-                <button id="" class="delete-btn">
-                  <i class="fa-solid fa-xmark"></i>
-                </button>
-              </div>
-            </div>
-            <div class="student-length">
-              <p>2 students</p>
-            </div>
+          <div class="list-container" id="list-container"></div>
+          <div class="student-length">
+            <p>
+              <span id="student-count"></span>
+              <span id="student"></span>
+            </p>
           </div>
         </div>
       </section>
