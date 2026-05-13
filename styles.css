@@ -95,17 +95,18 @@ label input::placeholder {
   color: var(--muted-text);
 }
 
-.success-border:focus {
+/* .success-border {
   border: 1px solid var(--green-border);
-}
+} */
 
-.error-border:focus {
+.error-border {
   border: 1px solid var(--error-border);
 }
 
 .error-message {
-  margin: 0.25rem 0;
-  font-size: 0.75rem;
+  margin: 0.4rem 0;
+  font-size: 0.6rem;
+  font-family: var(--secondary-font);
   color: var(--error-border);
   display: none;
 }
@@ -114,7 +115,7 @@ label input::placeholder {
   color: var(--card-color);
   background-color: var(--primary-text);
   width: 100%;
-  margin-top: 1.8rem;
+  margin-top: 1rem;
   padding: 0.63rem 0;
   font-size: 0.875rem;
   font-family: var(--main-font);
@@ -190,7 +191,7 @@ label input::placeholder {
   margin: 0.5rem 0;
 }
 
-#above-avg-indicator {
+.above-avg-indicator {
   font-size: 0.5rem;
   color: var(--green-border);
   border: 1px solid var(--green-border);
@@ -203,7 +204,7 @@ label input::placeholder {
   display: none;
 }
 
-#above-avg-indicator i {
+.above-avg-indicator i {
   font-size: 0.35rem;
 }
 
@@ -249,6 +250,7 @@ label input::placeholder {
 .student-length {
   display: flex;
   justify-content: flex-end;
+  display: none;
 }
 
 .student-length p {

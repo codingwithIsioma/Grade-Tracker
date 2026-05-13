@@ -24,7 +24,7 @@
       <section class="add-student">
         <div class="card">
           <p class="card-label">ADD STUDENT</p>
-          <form action="">
+          <form id="student-form" action="">
             <div class="form-inputs">
               <label for="student-name"
                 >Name<input
@@ -38,14 +38,10 @@
                   type="number"
                   name="student-grade"
                   id="student-grade"
-                  min="0"
-                  max="100"
                   placeholder="0 - 100"
               /></label>
             </div>
-            <p class="error-message" id="error-message">
-              Must have at least one name
-            </p>
+            <p class="error-message" id="error-message"></p>
             <button type="submit" id="submit-btn" class="submit-btn">
               Add Student
             </button>
@@ -78,14 +74,14 @@
               </button>
             </div>
           </div>
-          <div class="list-container">
+          <div class="list-container" id="list-container">
             <!-- when student list less than 1 -->
             <!-- <div class="no-student">
               <p>No students added yet.</p>  
             </div> -->
 
             <!-- when student list is greater than 0 -->
-            <div class="list-flex">
+            <!-- <div class="list-flex">
               <div class="name-flex">
                 <span class="student-idx">01</span>
                 <p>Ada Lovelace Jr.</p>
@@ -112,9 +108,13 @@
                 </button>
               </div>
             </div>
-            <div class="student-length">
-              <p>2 students</p>
-            </div>
+             -->
+          </div>
+          <div class="student-length">
+            <p>
+              <span id="student-count">2</span>
+              <span id="student">students</span>
+            </p>
           </div>
         </div>
       </section>
