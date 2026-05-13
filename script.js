@@ -10,15 +10,9 @@ const studentCount = document.getElementById("student-count");
 const student = document.getElementById("student");
 
 // main student data array
-let studentData = [];
+let studentData = JSON.parse(localStorage.getItem("studentData")) || [];
 
-if (studentData.length === 0) {
-  listContainer.innerHTML += `
-    <div class="no-student">
-        <p>No students added yet.</p>  
-    </div>`;
-}
-
+// removes the error when user puts in a valid input
 nameInput.addEventListener("input", (e) => {
   if (e.target.value) {
     nameInput.classList.remove("error-border");
@@ -33,6 +27,7 @@ gradeInput.addEventListener("input", (e) => {
   }
 });
 
+// handles the functionality of adding students to the student data array
 const addToStudentData = () => {
   const capitalizedName = nameInput.value
     .trim()
@@ -46,27 +41,31 @@ const addToStudentData = () => {
     name: capitalizedName,
     grade: +gradeInput.value,
   });
+  localStorage.setItem("studentData", JSON.stringify(studentData));
+  calculateAvgGrade();
   displayStudentData();
   nameInput.value = "";
   gradeInput.value = "";
 };
 
+// displays the student data onto the screen
 const displayStudentData = () => {
+  const returnedGradeAverage = calculateAvgGrade();
   if (studentData.length !== 0) {
     listContainer.innerHTML = "";
     studentData.forEach(({ id, name, grade }, i) => {
       listContainer.innerHTML += `
-        <div class="list-flex">
+        <div class="list-flex" id="${id}">
             <div class="name-flex">
                 <span class="student-idx">${String(i + 1).padStart(2, "0")}</span>
                 <p>${name}</p>
-                <span class="above-avg-indicator"
+                <span class=${grade > returnedGradeAverage ? "above-avg-indicator" : "do-not-display"}
                   ><i class="fa-solid fa-arrow-up"></i> AVG</span
                 >
             </div>
             <div class="grade-flex">
                 <p>${grade}</p>
-                <button id="${id}" class="delete-btn">
+                <button class="delete-btn" onclick="deleteStudent(this)">
                   <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -78,6 +77,51 @@ const displayStudentData = () => {
     student.textContent = `${studentData.length === 1 ? "student" : "students"}`;
   }
 };
+
+// calculates the grade average of the students
+const calculateAvgGrade = () => {
+  let sum = 0;
+  studentData.map((student) => {
+    return (sum += +student.grade);
+  });
+  const gradeAverage = sum / studentData.length;
+
+  // display average
+  averageValue.textContent = gradeAverage ? `${gradeAverage.toFixed(1)}` : "—";
+  return gradeAverage;
+};
+
+// delete button
+const deleteStudent = (buttonEl) => {
+  // find the index of the student to be deleted
+  const studentDataArr = studentData.findIndex(
+    (student) => student.id === +buttonEl.parentElement.parentElement.id,
+  );
+
+  studentData.splice(studentDataArr, 1);
+  buttonEl.parentElement.parentElement.remove();
+  localStorage.setItem("studentData", JSON.stringify(studentData));
+  calculateAvgGrade();
+  displayStudentData();
+  checkArr();
+};
+
+// display when the student data array is empty
+const checkArr = () => {
+  if (studentData.length === 0) {
+    listContainer.innerHTML += `
+    <div class="no-student">
+        <p>No students added yet.</p>  
+    </div>`;
+    studentLength.style.display = "none";
+  } else {
+    displayStudentData();
+  }
+};
+
+// array is empty on reload of page
+// fix when local storage is added
+checkArr();
 
 studentForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -92,6 +136,7 @@ const showError = (errMsg) => {
   errorMessage.textContent = errMsg;
 };
 
+// validates the name and grade inputs and checks there are no duplicates before adding to array
 const validateNameAndGrade = () => {
   const nameInputValue = nameInput.value.trim();
   const gradeInputValue = gradeInput.value;

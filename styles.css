@@ -22,7 +22,7 @@
 
 body {
   width: 100%;
-  height: 100vh;
+  max-height: 100vh;
   background-color: var(--background-color);
   color: var(--primary-text);
   font-size: 16px;
@@ -85,7 +85,7 @@ label input {
 }
 
 label input:focus {
-  border: 1px solid var(--primary-text);
+  border: 1px solid var(--green-border);
   outline: none;
 }
 
@@ -94,10 +94,6 @@ label input::placeholder {
   font-family: var(--main-font);
   color: var(--muted-text);
 }
-
-/* .success-border {
-  border: 1px solid var(--green-border);
-} */
 
 .error-border {
   border: 1px solid var(--error-border);
@@ -180,6 +176,11 @@ label input::placeholder {
   background-color: var(--highlight);
 }
 
+.list-container {
+  max-height: 270px;
+  overflow-y: scroll;
+}
+
 .list-flex {
   display: flex;
   justify-content: space-between;
@@ -201,11 +202,14 @@ label input::placeholder {
   justify-content: space-between;
   align-items: center;
   gap: 5px;
-  display: none;
 }
 
 .above-avg-indicator i {
-  font-size: 0.35rem;
+  font-size: 0.45rem;
+}
+
+.do-not-display {
+  display: none;
 }
 
 .list-flex div {
@@ -254,7 +258,7 @@ label input::placeholder {
 }
 
 .student-length p {
-  font-size: 0.685rem;
+  font-size: 0.725rem;
   font-family: var(--secondary-font);
   color: var(--muted-text);
   margin-top: 5px;
@@ -290,5 +294,11 @@ label input::placeholder {
   }
   .list-flex div {
     gap: 1rem;
+  }
+}
+
+@media screen and (min-width: 1680px) {
+  .list-container {
+    max-height: 400px;
   }
 }
