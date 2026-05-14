@@ -176,6 +176,14 @@ label input::placeholder {
   background-color: var(--highlight);
 }
 
+.sort-buttons .active:hover {
+  border: 1px solid var(--green-border);
+}
+
+.sort-buttons .active:focus {
+  border: 1px solid var(--green-border);
+}
+
 .list-container {
   max-height: 270px;
   overflow-y: scroll;

@@ -8,6 +8,8 @@ const listContainer = document.getElementById("list-container");
 const studentLength = document.querySelector(".student-length");
 const studentCount = document.getElementById("student-count");
 const student = document.getElementById("student");
+const sortAlphabetically = document.getElementById("sort-alphabetically");
+const sortByHighestGrade = document.getElementById("sort-by-highest-grade");
 
 // main student data array
 let studentData = JSON.parse(localStorage.getItem("studentData")) || [];
@@ -27,6 +29,42 @@ gradeInput.addEventListener("input", (e) => {
   }
 });
 
+// if the student list has a current sort-filter on it, display student list based off that filter, if not, then display normally
+let activeSortFilter = null;
+const refreshDisplay = () => {
+  if (activeSortFilter === "alpha") {
+    const sortedData = [...studentData];
+    sortedData.sort((a, b) => {
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+    displayStudentData(sortedData);
+  } else if (activeSortFilter === "grade") {
+    const sortedData = [...studentData];
+    sortedData.sort((a, b) => {
+      const gradeA = +a.grade;
+      const gradeB = +b.grade;
+      if (gradeA > gradeB) {
+        return -1;
+      }
+      if (gradeA < gradeB) {
+        return 1;
+      }
+      return 0;
+    });
+    displayStudentData(sortedData);
+  } else {
+    displayStudentData(studentData);
+  }
+};
+
 // handles the functionality of adding students to the student data array
 const addToStudentData = () => {
   const capitalizedName = nameInput.value
@@ -43,13 +81,13 @@ const addToStudentData = () => {
   });
   localStorage.setItem("studentData", JSON.stringify(studentData));
   calculateAvgGrade();
-  displayStudentData();
+  refreshDisplay();
   nameInput.value = "";
   gradeInput.value = "";
 };
 
 // displays the student data onto the screen
-const displayStudentData = () => {
+const displayStudentData = (studentData) => {
   const returnedGradeAverage = calculateAvgGrade();
   if (studentData.length !== 0) {
     listContainer.innerHTML = "";
@@ -102,11 +140,11 @@ const deleteStudent = (buttonEl) => {
   buttonEl.parentElement.parentElement.remove();
   localStorage.setItem("studentData", JSON.stringify(studentData));
   calculateAvgGrade();
-  displayStudentData();
+  refreshDisplay();
   checkArr();
 };
 
-// display when the student data array is empty
+// checks if the student list is empty or not
 const checkArr = () => {
   if (studentData.length === 0) {
     listContainer.innerHTML += `
@@ -115,14 +153,38 @@ const checkArr = () => {
     </div>`;
     studentLength.style.display = "none";
   } else {
-    displayStudentData();
+    refreshDisplay();
   }
 };
 
-// array is empty on reload of page
-// fix when local storage is added
+// displays the student list on loading of page whether empty or from local storage.
 checkArr();
 
+// sort function that updates the state of the sortfiler value, it is either, null, alpha or grade.
+sortAlphabetically.addEventListener("click", () => {
+  if (activeSortFilter === "alpha") {
+    activeSortFilter = null;
+    sortAlphabetically.classList.remove("active");
+  } else {
+    activeSortFilter = "alpha";
+    sortByHighestGrade.classList.remove("active");
+    sortAlphabetically.classList.add("active");
+  }
+  refreshDisplay();
+});
+sortByHighestGrade.addEventListener("click", () => {
+  if (activeSortFilter === "grade") {
+    activeSortFilter = null;
+    sortByHighestGrade.classList.remove("active");
+  } else {
+    activeSortFilter = "grade";
+    sortAlphabetically.classList.remove("active");
+    sortByHighestGrade.classList.add("active");
+  }
+  refreshDisplay();
+});
+
+// handles submission of form
 studentForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -131,6 +193,7 @@ studentForm.addEventListener("submit", (e) => {
   }
 });
 
+// show error message
 const showError = (errMsg) => {
   errorMessage.style.display = errMsg ? "block" : "none";
   errorMessage.textContent = errMsg;
