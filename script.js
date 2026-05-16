@@ -220,6 +220,7 @@ const deleteStudent = (buttonElId) => {
   studentData.splice(studentDataArr, 1);
   localStorage.setItem("studentData", JSON.stringify(studentData));
   calculateAvgGrade();
+  updateGradeDistributionCount();
   checkArr();
   reset();
 };
@@ -262,7 +263,7 @@ sortAlphabetically.addEventListener("click", () => {
     sortByHighestGrade.classList.remove("active");
     sortAlphabetically.classList.add("active");
   }
-  checkArr();
+  refreshDisplay();
 });
 sortByHighestGrade.addEventListener("click", () => {
   if (activeSortFilter === "grade") {
@@ -273,7 +274,7 @@ sortByHighestGrade.addEventListener("click", () => {
     sortAlphabetically.classList.remove("active");
     sortByHighestGrade.classList.add("active");
   }
-  checkArr();
+  refreshDisplay();
 });
 
 // handles submission of form
